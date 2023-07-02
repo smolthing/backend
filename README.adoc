@@ -1,20 +1,19 @@
 = Backend
 
-
-
-To launch your tests:
-```
-./gradlew clean test
-```
-
-To package your application:
-```
-./gradlew clean assemble
-```
-
 To run your application:
 ```
 ./gradlew clean run
 ```
 
-== Logs
+To launch your tests:
+```
+./gradlew clean test
+```
+To package your application:
+```
+./gradlew clean assemble
+```
+
+== Documentation
+
+https://dev.to/smolthing/build-web-application-in-vertx-part-1-3jc4[Build web application in Vert.x]
