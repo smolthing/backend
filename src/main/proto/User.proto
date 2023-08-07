@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package protobuf_schema.grpc;
+option java_multiple_files = true;
+option java_package = "com.protobuf.schema.grpc";
+option java_outer_classname = "UserProto";
+
+service UserService {
+  rpc GetUser (GetUserRequest) returns (GetUserResponse) {}
+}
+
+message User {
+  int64 id = 1;
+  string name = 2;
+}
+message GetUserRequest {
+  int64 id = 1;
+}
+
+message GetUserResponse {
+  User user = 1;
+}
