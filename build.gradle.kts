@@ -30,40 +30,19 @@ application {
 }
 
 dependencies {
+  implementation("io.vertx:vertx-health-check")
+
   implementation("com.google.protobuf:protobuf-java:3.22.2")
   implementation("io.grpc:grpc-protobuf:1.53.0")
 
   implementation(platform("io.vertx:vertx-stack-depchain:$vertxVersion"))
   implementation("io.vertx:vertx-core")
+
   implementation("io.vertx:vertx-grpc-server")
+  implementation("io.vertx:vertx-mysql-client")
+
   implementation("javax.annotation:javax.annotation-api:1.3.2")
 
-  implementation("io.vertx:vertx-web-client")
-  implementation("io.vertx:vertx-service-proxy")
-  implementation("io.vertx:vertx-health-check")
-  implementation("io.vertx:vertx-grpc-context-storage")
-  implementation("io.vertx:vertx-grpc-client")
-  implementation("io.vertx:vertx-service-discovery")
-  implementation("io.vertx:vertx-tcp-eventbus-bridge")
-  implementation("io.vertx:vertx-opentracing")
-  implementation("io.vertx:vertx-service-factory")
-  implementation("io.vertx:vertx-web-sstore-cookie")
-  implementation("io.vertx:vertx-web-sstore-redis")
-  implementation("io.vertx:vertx-web-validation")
-  implementation("io.vertx:vertx-web")
-  implementation("io.vertx:vertx-zookeeper")
-  implementation("io.vertx:vertx-mysql-client")
-  implementation("io.vertx:vertx-http-service-factory")
-  implementation("io.vertx:vertx-micrometer-metrics")
-  implementation("io.vertx:vertx-json-schema")
-  implementation("io.vertx:vertx-shell")
-  implementation("io.vertx:vertx-rx-java3")
-  implementation("io.vertx:vertx-redis-client")
-  implementation("io.vertx:vertx-config")
-  implementation("io.vertx:vertx-web-graphql")
-  implementation("io.vertx:vertx-circuit-breaker")
-  implementation("io.vertx:vertx-consul-client")
-  implementation("io.vertx:vertx-kafka-client")
   testImplementation("io.vertx:vertx-junit5")
   testImplementation("org.junit.jupiter:junit-jupiter:$junitJupiterVersion")
 }
