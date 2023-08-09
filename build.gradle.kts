@@ -42,6 +42,8 @@ dependencies {
   implementation("io.vertx:vertx-mysql-client")
 
   implementation("javax.annotation:javax.annotation-api:1.3.2")
+  implementation("org.projectlombok:lombok:1.18.26")
+  annotationProcessor("org.projectlombok:lombok:1.18.26")
 
   testImplementation("io.vertx:vertx-junit5")
   testImplementation("org.junit.jupiter:junit-jupiter:$junitJupiterVersion")

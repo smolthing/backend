@@ -1,12 +1,11 @@
 package com.backend.smolthing.db;
 
+import com.backend.smolthing.db.entity.UserEntity;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Future;
 import io.vertx.mysqlclient.MySQLConnectOptions;
 import io.vertx.sqlclient.Pool;
 import io.vertx.sqlclient.PoolOptions;
-import io.vertx.sqlclient.Row;
-import io.vertx.sqlclient.RowSet;
-import java.util.Iterator;
 
 public class MySQLVerticle extends AbstractVerticle {
   @Override
@@ -27,27 +26,24 @@ public class MySQLVerticle extends AbstractVerticle {
     pool.getConnection().compose(connection -> {
       System.out.println("Got a connection from the pool");
 
-      // All operations execute on the same connection
       return connection
         .query("SELECT * FROM user WHERE name='smol'")
         .execute()
+        .map(rows -> rows.iterator().next())
+        .map(UserEntity::fromDbRow)
         .onComplete(ar -> {
           connection.close();
         });
     }).onComplete(result -> {
       if (result.succeeded()) {
-        RowSet<Row> rowSet = result.result();
-        Iterator<Row> iterator = rowSet.iterator();
-        if (iterator.hasNext()) {
-          Row row = iterator.next();
-          String name = row.getString("name");
-          System.out.println("Found user: " + name);
-          System.out.println(row.toJson());
-        } else {
-          System.out.println("No user found");
-        }
+        UserEntity user = result.result();
+        System.out.println("Found user: " + user.getName());
+        System.out.println("Account id: " + user.getAccountId());
+        System.out.println("Created at: " + user.getCreatedAt());
+        System.out.println("Updated at: " + user.getUpdatedAt());
       } else {
         System.out.println("Something went wrong " + result.cause().getMessage());
+        result.cause().printStackTrace();
       }
     });
   }
