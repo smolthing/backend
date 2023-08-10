@@ -1,5 +1,7 @@
 package com.backend.smolthing.http;
 
+import com.backend.smolthing.grpc.GetUserHandler;
+import com.backend.smolthing.http.user.UserHandler;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.ext.healthchecks.HealthCheckHandler;
 import io.vertx.ext.healthchecks.HealthChecks;
@@ -14,10 +16,11 @@ public class HttpApiVerticle extends AbstractVerticle {
 
     Router router = Router.router(vertx);
     router.get("/ping").handler(healthCheckHandler);
+    router.get("/users/:id").handler(UserHandler::handle);
     router.get("/*").handler(routingContext -> {
       routingContext.response()
         .putHeader("content-type", "text/plain; charset=utf-8")
-        .end("Hello smolthing \uD83D\uDCA9.");
+        .end("Hello smolthing \uD83D\uDCA9, it's 404");
     });
 
     vertx.createHttpServer().requestHandler(router).listen(8000, http -> {

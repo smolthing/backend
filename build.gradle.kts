@@ -41,6 +41,8 @@ dependencies {
   implementation("io.vertx:vertx-grpc-server")
   implementation("io.vertx:vertx-mysql-client")
 
+  implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
+
   implementation("javax.annotation:javax.annotation-api:1.3.2")
   implementation("org.projectlombok:lombok:1.18.26")
   annotationProcessor("org.projectlombok:lombok:1.18.26")
