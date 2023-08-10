@@ -1,6 +1,5 @@
 package com.backend.smolthing.http;
 
-import com.backend.smolthing.grpc.GetUserHandler;
 import com.backend.smolthing.http.user.UserHandler;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.ext.healthchecks.HealthCheckHandler;
