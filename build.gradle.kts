@@ -30,24 +30,22 @@ application {
 }
 
 dependencies {
-  implementation("io.vertx:vertx-health-check")
+  implementation("io.vertx:vertx-health-check:$vertxVersion")
+  implementation(platform("io.vertx:vertx-stack-depchain:$vertxVersion"))
+  implementation("io.vertx:vertx-core:$vertxVersion")
+  implementation("io.vertx:vertx-grpc-server:$vertxVersion")
+  implementation("io.vertx:vertx-mysql-client:$vertxVersion")
 
   implementation("com.google.protobuf:protobuf-java:3.22.2")
   implementation("io.grpc:grpc-protobuf:1.53.0")
-
-  implementation(platform("io.vertx:vertx-stack-depchain:$vertxVersion"))
-  implementation("io.vertx:vertx-core")
-
-  implementation("io.vertx:vertx-grpc-server")
-  implementation("io.vertx:vertx-mysql-client")
-
   implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
 
   implementation("javax.annotation:javax.annotation-api:1.3.2")
   implementation("org.projectlombok:lombok:1.18.26")
+  implementation("javax.inject:javax.inject:1")
   annotationProcessor("org.projectlombok:lombok:1.18.26")
 
-  testImplementation("io.vertx:vertx-junit5")
+  testImplementation("io.vertx:vertx-junit5:$vertxVersion")
   testImplementation("org.junit.jupiter:junit-jupiter:$junitJupiterVersion")
 }
 

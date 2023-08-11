@@ -2,7 +2,6 @@ package com.backend.smolthing.db;
 
 import com.backend.smolthing.db.entity.UserEntity;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Future;
 import io.vertx.mysqlclient.MySQLConnectOptions;
 import io.vertx.sqlclient.Pool;
 import io.vertx.sqlclient.PoolOptions;
