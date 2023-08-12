@@ -18,6 +18,7 @@ repositories {
 
 val vertxVersion = "4.4.4"
 val junitJupiterVersion = "5.9.1"
+val jacksonVersion = "2.15.2"
 
 val mainVerticleName = "com.backend.smolthing.MainVerticle"
 val launcherClassName = "io.vertx.core.Launcher"
@@ -38,7 +39,8 @@ dependencies {
 
   implementation("com.google.protobuf:protobuf-java:3.22.2")
   implementation("io.grpc:grpc-protobuf:1.53.0")
-  implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
+  implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
+  implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
 
   implementation("javax.annotation:javax.annotation-api:1.3.2")
   implementation("org.projectlombok:lombok:1.18.26")
