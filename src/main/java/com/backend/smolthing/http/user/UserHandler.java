@@ -55,6 +55,9 @@ public class UserHandler {
 
   private static class QueryStatement {
 
-    public static final String SELECT_USER_BY_ID = "SELECT `id`, `account_id`, `name`, `created_at`, `updated_at` from user where id=%s";
+    public static final String SELECT_USER_BY_ID
+      = "SELECT `id`, `account_id`, `name`, `created_at`, `updated_at` "
+      + "FROM `user` "
+      + "WHERE id=%s LIMIT 1";
   }
 }
