@@ -1,12 +1,16 @@
 package com.backend.smolthing.http;
 
 import com.backend.smolthing.http.user.UserHandler;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.json.jackson.DatabindCodec;
 import io.vertx.ext.healthchecks.HealthCheckHandler;
 import io.vertx.ext.healthchecks.HealthChecks;
 import io.vertx.ext.web.Router;
 
 public class HttpApiVerticle extends AbstractVerticle {
+
   @Override
   public void start() {
     HealthCheckHandler healthCheckHandler = HealthCheckHandler

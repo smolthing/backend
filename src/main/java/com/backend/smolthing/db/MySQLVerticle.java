@@ -21,7 +21,6 @@ public class MySQLVerticle extends AbstractVerticle {
       .setMaxSize(5);
 
     Pool pool = Pool.pool(vertx, connectOptions, poolOptions);
-
     pool.getConnection().compose(connection -> {
       System.out.println("Got a connection from the pool");
 
