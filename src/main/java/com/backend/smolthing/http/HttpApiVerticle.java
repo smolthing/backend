@@ -1,10 +1,7 @@
 package com.backend.smolthing.http;
 
 import com.backend.smolthing.http.user.UserHandler;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.json.jackson.DatabindCodec;
 import io.vertx.ext.healthchecks.HealthCheckHandler;
 import io.vertx.ext.healthchecks.HealthChecks;
 import io.vertx.ext.web.Router;
@@ -13,11 +10,11 @@ public class HttpApiVerticle extends AbstractVerticle {
 
   @Override
   public void start() {
-    HealthCheckHandler healthCheckHandler = HealthCheckHandler
+    final HealthCheckHandler healthCheckHandler = HealthCheckHandler
       .createWithHealthChecks(HealthChecks.create(vertx));
     HealthCheckManager.configureHealthChecks(healthCheckHandler);
 
-    Router router = Router.router(vertx);
+    final Router router = Router.router(vertx);
     router.get("/ping").handler(healthCheckHandler);
     router.get("/users/:id").handler(UserHandler::handle);
     router.get("/*").handler(routingContext -> {

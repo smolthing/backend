@@ -1,7 +1,6 @@
 package com.backend.smolthing.http.user;
 
-import com.backend.smolthing.db.BackendMySQLPool;
-import com.backend.smolthing.db.entity.UserEntity;
+import com.backend.smolthing.db.dao.UserDaoImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.handler.codec.http.HttpHeaderNames;
@@ -9,19 +8,19 @@ import io.netty.handler.codec.http.HttpHeaderValues;
 import io.vertx.core.Future;
 import io.vertx.ext.web.RoutingContext;
 import java.util.NoSuchElementException;
+import javax.inject.Singleton;
 
+@Singleton
 public class UserHandler {
 
-  public static void handle(RoutingContext ctx) {
-    String userId = ctx.request().getParam("id");
+  private static final String USER_ID = "id";
 
-    BackendMySQLPool pool = new BackendMySQLPool(ctx.vertx());
-    pool
-      .getPool()
-      .query(QueryStatement.SELECT_USER_BY_ID.formatted(userId))
-      .execute()
-      .map(rows -> rows.iterator().next())
-      .map(UserEntity::fromDbRow)
+  public static void handle(RoutingContext ctx) {
+    final String userId = ctx.request().getParam(USER_ID);
+
+    final UserDaoImpl userDaoImpl = new UserDaoImpl();
+    userDaoImpl
+      .getUser(Long.valueOf(userId))
       .compose(user -> {
         try {
           final String content = new ObjectMapper().writeValueAsString(user);
@@ -51,13 +50,5 @@ public class UserHandler {
           .setStatusCode(500)
           .end();
       });
-  }
-
-  private static class QueryStatement {
-
-    public static final String SELECT_USER_BY_ID
-      = "SELECT `id`, `account_id`, `name`, `created_at`, `updated_at` "
-      + "FROM `user` "
-      + "WHERE id=%s LIMIT 1";
   }
 }

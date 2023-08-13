@@ -12,7 +12,7 @@ public class BackendMySQLPool {
   @Getter
   private final Pool pool;
 
-  public BackendMySQLPool(Vertx vertx) {
+  public BackendMySQLPool() {
     MySQLConnectOptions connectOptions = new MySQLConnectOptions()
       .setPort(3306)
       .setHost("localhost")
@@ -24,6 +24,6 @@ public class BackendMySQLPool {
     PoolOptions poolOptions = new PoolOptions()
       .setMaxSize(5);
 
-    pool = Pool.pool(vertx, connectOptions, poolOptions);
+    pool = Pool.pool(Vertx.currentContext().owner(), connectOptions, poolOptions);
   }
 }

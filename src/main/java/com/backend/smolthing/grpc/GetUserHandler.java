@@ -7,8 +7,11 @@ import io.vertx.grpc.common.GrpcStatus;
 import io.vertx.grpc.server.GrpcServer;
 import java.util.HashMap;
 import java.util.Map;
+import javax.inject.Singleton;
 
+@Singleton
 public class GetUserHandler {
+
   private static final Map<Long, String> listOfUsers = new HashMap<>();
 
   static {
@@ -16,6 +19,7 @@ public class GetUserHandler {
     listOfUsers.put(2L, "small");
     listOfUsers.put(3L, "tiny");
   }
+
   public static void handle(GrpcServer grpcServer) {
     grpcServer.callHandler(UserServiceGrpc.getGetUserMethod(), request -> {
 

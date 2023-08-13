@@ -6,6 +6,7 @@ import com.backend.smolthing.http.HttpApiVerticle;
 import io.vertx.core.AbstractVerticle;
 
 public class MainVerticle extends AbstractVerticle {
+
   @Override
   public void start() {
     vertx.deployVerticle(new HttpApiVerticle());
