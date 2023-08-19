@@ -37,6 +37,7 @@ dependencies {
   implementation("io.vertx:vertx-grpc-server:$vertxVersion")
   implementation("io.vertx:vertx-mysql-client:$vertxVersion")
   implementation("io.vertx:vertx-redis-client:$vertxVersion")
+  implementation("io.vertx:vertx-config:$vertxVersion")
 
   implementation("com.google.protobuf:protobuf-java:3.22.2")
   implementation("io.grpc:grpc-protobuf:1.53.0")

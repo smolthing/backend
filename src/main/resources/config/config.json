@@ -1,0 +1,22 @@
+{
+  "grpc": {
+    "port": 9000
+  },
+  "http": {
+    "port": 8080
+  },
+  "database": {
+    "host": "localhost",
+    "port": 3306,
+    "db_name": "backend",
+    "username": "root",
+    "password": "password",
+    "pool_size": 5
+  },
+  "redis": {
+    "url": "redis://:password@localhost:6379"
+  },
+  "logging": {
+    "level": "debug"
+  }
+}
