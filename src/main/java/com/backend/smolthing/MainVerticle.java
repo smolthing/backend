@@ -22,9 +22,12 @@ public class MainVerticle extends AbstractVerticle {
 
     retriever.getConfig().onComplete(json -> {
       JsonObject httpConfig = json.result().getJsonObject("http");
+      JsonObject grpcConfig = json.result().getJsonObject("grpc");
+      JsonObject mysqlConfi = json.result().getJsonObject("database");
+
       vertx.deployVerticle(new HttpApiVerticle(), new DeploymentOptions().setConfig(httpConfig));
-      vertx.deployVerticle(new GrpcApiVerticle());
-      vertx.deployVerticle(new MySQLVerticle());
+      vertx.deployVerticle(new GrpcApiVerticle(), new DeploymentOptions().setConfig(grpcConfig));
+      vertx.deployVerticle(new MySQLVerticle(), new DeploymentOptions().setConfig(mysqlConfi));
     });
   }
 }

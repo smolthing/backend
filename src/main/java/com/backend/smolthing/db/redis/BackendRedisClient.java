@@ -1,6 +1,7 @@
 package com.backend.smolthing.db.redis;
 
 import io.vertx.core.Vertx;
+import io.vertx.core.json.JsonObject;
 import io.vertx.redis.client.Redis;
 import io.vertx.redis.client.RedisAPI;
 import lombok.Getter;
@@ -11,6 +12,7 @@ public class BackendRedisClient {
 
   public static final String REDIS_PREFIX_USER = "user:%s";
 
+  private JsonObject config;
   public BackendRedisClient() {
     final Redis redisClient = Redis.createClient(
       Vertx.currentContext().owner(),

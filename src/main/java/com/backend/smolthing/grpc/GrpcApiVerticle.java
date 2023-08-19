@@ -8,13 +8,13 @@ public class GrpcApiVerticle extends AbstractVerticle {
 
   @Override
   public void start() throws IOException {
-    GrpcServer grpcServer = GrpcServer.server(vertx);
-
+    final GrpcServer grpcServer = GrpcServer.server(vertx);
     GetUserHandler.handle(grpcServer);
 
-    vertx.createHttpServer().requestHandler(grpcServer).listen(9000, grpc -> {
+    final int port = config().getInteger("port");
+    vertx.createHttpServer().requestHandler(grpcServer).listen(port, grpc -> {
       if (grpc.succeeded()) {
-        System.out.println("gRPC server is running on port 9000");
+        System.out.println("gRPC server is running on port %d".formatted(port));
       } else {
         System.err.println("Failed to start HTTP server: " + grpc.cause());
       }

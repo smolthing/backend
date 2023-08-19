@@ -9,12 +9,18 @@ import io.vertx.sqlclient.PoolOptions;
 public class MySQLVerticle extends AbstractVerticle {
   @Override
   public void start() {
+    final int port = config().getInteger("port");
+    final String host = config().getString("host");
+    final String databaseName = config().getString("db_name");
+    final String username = config().getString("username");
+    final String password = config().getString("password");
+
     MySQLConnectOptions connectOptions = new MySQLConnectOptions()
-      .setPort(3306)
-      .setHost("localhost")
-      .setDatabase("backend")
-      .setUser("root")
-      .setPassword("password")
+      .setPort(port)
+      .setHost(host)
+      .setDatabase(databaseName)
+      .setUser(username)
+      .setPassword(password)
       .setIdleTimeout(5);
 
     PoolOptions poolOptions = new PoolOptions()

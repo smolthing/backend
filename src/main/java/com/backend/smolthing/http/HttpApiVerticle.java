@@ -23,10 +23,12 @@ public class HttpApiVerticle extends AbstractVerticle {
         .end("Hello smolthing \uD83D\uDCA9, it's 404");
     });
 
+    var appConfig = vertx.getOrCreateContext().get("appConfig");
+
     final int port = config().getInteger("port");
     vertx.createHttpServer().requestHandler(router).listen(port, http -> {
       if (http.succeeded()) {
-        System.out.println("HTTP server is running on port %s".formatted(port));
+        System.out.println("HTTP server is running on port %d".formatted(port));
       } else {
         System.err.println("Failed to start HTTP server: " + http.cause());
       }
