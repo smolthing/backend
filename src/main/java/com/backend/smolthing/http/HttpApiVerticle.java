@@ -23,8 +23,6 @@ public class HttpApiVerticle extends AbstractVerticle {
         .end("Hello smolthing \uD83D\uDCA9, it's 404");
     });
 
-    var appConfig = vertx.getOrCreateContext().get("appConfig");
-
     final int port = config().getInteger("port");
     vertx.createHttpServer().requestHandler(router).listen(port, http -> {
       if (http.succeeded()) {
