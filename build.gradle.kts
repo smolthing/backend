@@ -1,6 +1,6 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import com.google.protobuf.gradle.id
 import org.gradle.api.tasks.testing.logging.TestLogEvent.*
-import com.google.protobuf.gradle.*
 
 plugins {
   java

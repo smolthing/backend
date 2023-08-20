@@ -19,7 +19,7 @@ public class MainVerticle extends AbstractVerticle {
       new ConfigRetrieverOptions().addStore(
         new ConfigStoreOptions()
           .setType("file")
-          .setConfig(new JsonObject().put("path", "src/main/resources/config/config.json"))));
+          .setConfig(new JsonObject().put("path", "src/main/resources/conf/config.json"))));
 
     retriever.getConfig().onComplete(json -> {
       JsonObject httpConfig = json.result().getJsonObject("http");

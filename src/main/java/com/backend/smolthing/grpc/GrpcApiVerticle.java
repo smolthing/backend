@@ -2,12 +2,11 @@ package com.backend.smolthing.grpc;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.grpc.server.GrpcServer;
-import java.io.IOException;
 
 public class GrpcApiVerticle extends AbstractVerticle {
 
   @Override
-  public void start() throws IOException {
+  public void start() {
     final GrpcServer grpcServer = GrpcServer.server(vertx);
     GetUserHandler.handle(grpcServer);
 

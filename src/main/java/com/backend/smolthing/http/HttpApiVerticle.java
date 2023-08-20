@@ -10,18 +10,16 @@ public class HttpApiVerticle extends AbstractVerticle {
 
   @Override
   public void start() {
-    final HealthCheckHandler healthCheckHandler = HealthCheckHandler
-      .createWithHealthChecks(HealthChecks.create(vertx));
+    final HealthCheckHandler healthCheckHandler = HealthCheckHandler.createWithHealthChecks(
+      HealthChecks.create(vertx));
     HealthCheckManager.configureHealthChecks(healthCheckHandler);
 
     final Router router = Router.router(vertx);
     router.get("/ping").handler(healthCheckHandler);
     router.get("/users/:id").handler(UserHandler::handle);
-    router.get("/*").handler(routingContext -> {
-      routingContext.response()
-        .putHeader("content-type", "text/plain; charset=utf-8")
-        .end("Hello smolthing \uD83D\uDCA9, it's 404");
-    });
+    router.get("/*").handler(routingContext -> routingContext.response()
+      .putHeader("content-type", "text/plain; charset=utf-8")
+      .end("Hello smolthing \uD83D\uDCA9, it's 404"));
 
     final int port = config().getInteger("port");
     vertx.createHttpServer().requestHandler(router).listen(port, http -> {

@@ -7,6 +7,7 @@ import io.vertx.sqlclient.Pool;
 import io.vertx.sqlclient.PoolOptions;
 
 public class MySQLVerticle extends AbstractVerticle {
+
   @Override
   public void start() {
     final int port = config().getInteger("port");
@@ -35,9 +36,8 @@ public class MySQLVerticle extends AbstractVerticle {
         .execute()
         .map(rows -> rows.iterator().next())
         .map(UserEntity::fromDbRow)
-        .onComplete(ar -> {
-          connection.close();
-        });
+
+        .onComplete(ar -> connection.close());
     }).onComplete(result -> {
       if (result.succeeded()) {
         UserEntity user = result.result();

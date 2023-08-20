@@ -3,7 +3,6 @@ package com.backend.smolthing.db.dao;
 import com.backend.smolthing.db.BackendMySQLPool;
 import com.backend.smolthing.db.entity.UserEntity;
 import io.vertx.core.Future;
-import io.vertx.core.Vertx;
 import javax.inject.Singleton;
 
 @Singleton
