@@ -19,7 +19,7 @@ public class UserEntity {
 
 
   public static UserEntity fromDbRow(Row row) {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-mm-yyyy");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     return builder()
       .id(row.getInteger("id"))
