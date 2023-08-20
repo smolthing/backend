@@ -26,7 +26,7 @@ public class HttpApiVerticle extends AbstractVerticle {
     final int port = config().getInteger("port");
     vertx.createHttpServer().requestHandler(router).listen(port, http -> {
       if (http.succeeded()) {
-        System.out.println("HTTP server is running on port %d".formatted(port));
+        System.out.printf("HTTP server is running on port %d%n", port);
       } else {
         System.err.println("Failed to start HTTP server: " + http.cause());
       }

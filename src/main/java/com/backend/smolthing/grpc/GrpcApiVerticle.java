@@ -14,7 +14,7 @@ public class GrpcApiVerticle extends AbstractVerticle {
     final int port = config().getInteger("port");
     vertx.createHttpServer().requestHandler(grpcServer).listen(port, grpc -> {
       if (grpc.succeeded()) {
-        System.out.println("gRPC server is running on port %d".formatted(port));
+        System.out.printf("gRPC server is running on port %d%n", port);
       } else {
         System.err.println("Failed to start HTTP server: " + grpc.cause());
       }

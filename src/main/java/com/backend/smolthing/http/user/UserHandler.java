@@ -1,10 +1,10 @@
 package com.backend.smolthing.http.user;
 
-import static com.backend.smolthing.db.redis.BackendRedisClient.REDIS_PREFIX_USER;
+import static com.backend.smolthing.db.redis.RedisClientFactory.REDIS_PREFIX_USER;
 
 import com.backend.smolthing.db.dao.UserDaoImpl;
 import com.backend.smolthing.db.entity.UserEntity;
-import com.backend.smolthing.db.redis.BackendRedisClient;
+import com.backend.smolthing.db.redis.RedisClientFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.handler.codec.http.HttpHeaderNames;
@@ -20,12 +20,11 @@ import javax.inject.Singleton;
 @Singleton
 public class UserHandler {
 
-  static final RedisAPI redis = new BackendRedisClient().getRedisApi();
+  private static final RedisAPI redis = RedisClientFactory.getClient();
   private static final String USER_ID = "id";
 
   public static void handle(RoutingContext ctx) {
     final long userId = Long.parseLong(ctx.request().getParam(USER_ID));
-
     redis.get(REDIS_PREFIX_USER.formatted(userId))
       .onSuccess(cachedUser -> {
         if (Objects.nonNull(cachedUser)) {

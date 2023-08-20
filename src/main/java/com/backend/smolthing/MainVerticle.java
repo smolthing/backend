@@ -1,6 +1,7 @@
 package com.backend.smolthing;
 
 import com.backend.smolthing.db.MySQLVerticle;
+import com.backend.smolthing.db.redis.RedisClientFactory;
 import com.backend.smolthing.grpc.GrpcApiVerticle;
 import com.backend.smolthing.http.HttpApiVerticle;
 import io.vertx.config.ConfigRetriever;
@@ -24,6 +25,9 @@ public class MainVerticle extends AbstractVerticle {
       JsonObject httpConfig = json.result().getJsonObject("http");
       JsonObject grpcConfig = json.result().getJsonObject("grpc");
       JsonObject mysqlConfi = json.result().getJsonObject("database");
+      JsonObject redisConfig = json.result().getJsonObject("redis");
+
+      RedisClientFactory.setConfig(redisConfig);
 
       vertx.deployVerticle(new HttpApiVerticle(), new DeploymentOptions().setConfig(httpConfig));
       vertx.deployVerticle(new GrpcApiVerticle(), new DeploymentOptions().setConfig(grpcConfig));
