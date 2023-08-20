@@ -49,6 +49,8 @@ dependencies {
   implementation("javax.inject:javax.inject:1")
   annotationProcessor("org.projectlombok:lombok:1.18.26")
 
+  runtimeOnly("io.netty:netty-resolver-dns-native-macos:4.1.96.Final:osx-x86_64")
+
   testImplementation("io.vertx:vertx-junit5:$vertxVersion")
   testImplementation("org.junit.jupiter:junit-jupiter:$junitJupiterVersion")
 }
