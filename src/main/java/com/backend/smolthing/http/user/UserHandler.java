@@ -9,17 +9,19 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.handler.codec.http.HttpHeaderNames;
 import io.netty.handler.codec.http.HttpHeaderValues;
+import io.vertx.core.Vertx;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.redis.client.RedisAPI;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.logging.Logger;
 import javax.inject.Singleton;
 
 @Singleton
 public class UserHandler {
-
+  private static Logger logger = Logger.getLogger("UserHandler.class");
   private static final RedisAPI redis = RedisClientFactory.getClient();
   private static final String USER_ID = "id";
 
@@ -33,7 +35,10 @@ public class UserHandler {
           getUserFromDatabase(userId, ctx);
         }
       })
-      .onFailure(exception -> getUserFromDatabase(userId, ctx));
+      .onFailure(exception -> {
+        logger.severe(exception.getMessage());
+        getUserFromDatabase(userId, ctx);
+      });
   }
 
   private static void getUserFromDatabase(long userId, RoutingContext ctx) {
@@ -42,7 +47,7 @@ public class UserHandler {
       .getUser(userId)
       .onSuccess(userEntity -> cacheAndSendResponse(userEntity, userId, ctx))
       .onFailure(exception -> {
-        System.err.println(exception);
+        logger.severe(exception.getMessage());
         if (exception instanceof NoSuchElementException) {
           sendResponse(ctx, 404, Optional.empty());
           return;
@@ -56,7 +61,7 @@ public class UserHandler {
       String userInJSON = new ObjectMapper().writeValueAsString(userEntity);
       redis.set((List.of(REDIS_PREFIX_USER.formatted(userId), userInJSON)))
         .onSuccess(unused -> sendResponse(ctx, 200, Optional.of(userInJSON)))
-        .onFailure(exception -> System.err.println("Error setting user in redis: " + exception));
+        .onFailure(exception -> logger.severe("Error setting user in redis: " + exception));
     } catch (JsonProcessingException e) {
       throw new RuntimeException(e);
     }
