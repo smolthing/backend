@@ -21,7 +21,7 @@ import javax.inject.Singleton;
 
 @Singleton
 public class UserHandler {
-  private static Logger logger = Logger.getLogger("UserHandler.class");
+  private static final Logger logger = Logger.getLogger("UserHandler.class");
   private static final RedisAPI redis = RedisClientFactory.getClient();
   private static final String USER_ID = "id";
 
