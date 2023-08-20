@@ -28,7 +28,7 @@ public class UserHandler {
     final long userId = Long.parseLong(ctx.request().getParam(USER_ID));
     redis.get(REDIS_PREFIX_USER.formatted(userId)).onSuccess(cachedUser -> {
       if (Objects.nonNull(cachedUser)) {
-        sendResponse(ctx, 200, cachedUser.toString());
+        sendResponse(ctx, cachedUser.toString());
       } else {
         getUserFromDatabase(userId, ctx);
       }
@@ -57,16 +57,16 @@ public class UserHandler {
     try {
       String userInJSON = new ObjectMapper().writeValueAsString(userEntity);
       redis.set((List.of(REDIS_PREFIX_USER.formatted(userId), userInJSON)))
-        .onSuccess(unused -> sendResponse(ctx, 200, userInJSON))
+        .onSuccess(unused -> sendResponse(ctx, userInJSON))
         .onFailure(exception -> logger.severe("Error setting user in redis: " + exception));
     } catch (JsonProcessingException e) {
       throw new RuntimeException(e);
     }
   }
 
-  private static void sendResponse(RoutingContext ctx, int statusCode, String content) {
+  private static void sendResponse(RoutingContext ctx, String content) {
     ctx.response().putHeader(HttpHeaderNames.CONTENT_TYPE, HttpHeaderValues.APPLICATION_JSON)
-      .setStatusCode(statusCode).setChunked(true).end(content);
+      .setStatusCode(200).setChunked(true).end(content);
   }
 
   private static void sendResponse(RoutingContext ctx, int statusCode) {
